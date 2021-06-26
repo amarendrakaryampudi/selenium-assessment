@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public class MenuBar {
 	
+	public WebDriver driver;
 	private By userIcon = By.id("hrefUserIcon");
 	private By usernameField = By.name("username");
 	private By passwordField = By.name("password");
@@ -13,7 +14,11 @@ public class MenuBar {
 	private By cartIcon = By.id("shoppingCartLink");
 
 	
-	public void login(WebDriver driver, String username, String password) {
+	public MenuBar (WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void login(String username, String password) {
 		driver.findElement(userIcon).click();
 		System.out.println("Clicked on user icon");
 		driver.findElement(usernameField).sendKeys(username);
@@ -24,14 +29,14 @@ public class MenuBar {
 		System.out.println("Clicked on sign in button");
 	}
 
-	public void logout(WebDriver driver) {
+	public void logout() {
 		driver.findElement(userIcon).click();
 		System.out.println("Clicked on user icon");
 		driver.findElement(signOut).click();
 		System.out.println("Clicked on sign out link");
 	}
 
-	public void clickCartIcon(WebDriver driver) {
+	public void clickCartIcon() {
 		driver.findElement(cartIcon).click();
 		System.out.println("Clicked on shopping cart icon");
 	}

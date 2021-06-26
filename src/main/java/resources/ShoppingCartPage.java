@@ -5,10 +5,15 @@ import org.openqa.selenium.WebDriver;
 
 public class ShoppingCartPage {
 
+	public WebDriver driver;
 	private By checkOutButton = By.id("checkOutButton");
 	
 	
-	public void clickCheckOutButton(WebDriver driver) {
+	public ShoppingCartPage(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void clickCheckOutButton() {
 		driver.findElement(checkOutButton).click();
 		System.out.println("Clicked on checkout button");
 	}

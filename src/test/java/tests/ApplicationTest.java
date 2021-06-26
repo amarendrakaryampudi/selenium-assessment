@@ -33,35 +33,35 @@ public class ApplicationTest {
 	public void purchaseLaptop() {
 		driver.get("http://advantageonlineshopping.com/#/");
 		
-		MenuBar menuBar = new MenuBar();
-		menuBar.login(driver, username, password);
+		MenuBar menuBar = new MenuBar(driver);
+		menuBar.login(username, password);
 
-		HomePage homePage = new HomePage();
-		homePage.selectLaptopsCategory(driver);
+		HomePage homePage = new HomePage(driver);
+		homePage.selectLaptopsCategory();
 		
-		ProductsPage productsPage = new ProductsPage();
-		productsPage.selectFirstProduct(driver);
+		ProductsPage productsPage = new ProductsPage(driver);
+		productsPage.selectFirstProduct();
 		
-		ProductDetailsPage prodDetailsPage = new ProductDetailsPage();
-		prodDetailsPage.increaseQuantity(driver);
-		prodDetailsPage.addToCart(driver);
+		ProductDetailsPage prodDetailsPage = new ProductDetailsPage(driver);
+		prodDetailsPage.increaseQuantity();
+		prodDetailsPage.addToCart();
 		
-		menuBar.clickCartIcon(driver);
+		menuBar.clickCartIcon();
 		
-		ShoppingCartPage shoppingCart = new ShoppingCartPage();
-		shoppingCart.clickCheckOutButton(driver);
+		ShoppingCartPage shoppingCart = new ShoppingCartPage(driver);
+		shoppingCart.clickCheckOutButton();
 		
-		PaymentPage paymentPage = new PaymentPage();
-		paymentPage.clickNext(driver);
-		paymentPage.selectSafePay(driver);
-		paymentPage.enterSafePayUsername(driver, username);
-		paymentPage.enterSafePayPassword(driver, password);
-		paymentPage.clickPayNowSafePay(driver);
+		PaymentPage paymentPage = new PaymentPage(driver);
+		paymentPage.clickNext();
+		paymentPage.selectSafePay();
+		paymentPage.enterSafePayUsername(username);
+		paymentPage.enterSafePayPassword(password);
+		paymentPage.clickPayNowSafePay();
 		
-		paymentPage.getTrackingNumber(driver);
-		paymentPage.getOrderNumber(driver);
+		paymentPage.getTrackingNumber();
+		paymentPage.getOrderNumber();
 		
-		menuBar.logout(driver);
+		menuBar.logout();
 		
 	}
 }

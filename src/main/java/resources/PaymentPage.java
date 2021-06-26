@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PaymentPage {
 
+	public WebDriver driver;
 	private By nextButton = By.id("next_btn");
 	private By safePay = By.xpath("//input[@type='radio' and @name='safepay']");
 	private By safePayUsername = By.name("safepay_username");
@@ -18,12 +19,16 @@ public class PaymentPage {
 	private By orderNumber = By.id("orderNumberLabel");
 	
 	
-	public void clickNext(WebDriver driver) {
+	public PaymentPage(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void clickNext() {
 		driver.findElement(nextButton).click();
 		System.out.println("Clicked on next button");
 	}
 	
-	public void selectSafePay(WebDriver driver) {
+	public void selectSafePay() {
 		WebElement safePayOption = driver.findElement(safePay);
 		if(! safePayOption.isSelected()) {
 			safePayOption.click();
@@ -33,22 +38,22 @@ public class PaymentPage {
 			
 	}
 	
-	public void enterSafePayUsername(WebDriver driver, String username) {
+	public void enterSafePayUsername(String username) {
 		driver.findElement(safePayUsername).sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), username);
 		System.out.println("Safe pay username entered as : "+username);
 	}
 
-	public void enterSafePayPassword(WebDriver driver, String password) {
+	public void enterSafePayPassword(String password) {
 		driver.findElement(safePayPassword).sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END), password);
 		System.out.println("Safe pay password entered");
 	}
 	
-	public void clickPayNowSafePay(WebDriver driver) {
+	public void clickPayNowSafePay() {
 		driver.findElement(payNowSafePay).click();
 		System.out.println("Clicked on pay now button");
 	}
 	
-	public String getTrackingNumber(WebDriver driver) {
+	public String getTrackingNumber() {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(trackingNumber));
 		String result = element.getText();
@@ -56,7 +61,7 @@ public class PaymentPage {
 		return result;
 	}
 	
-	public String getOrderNumber(WebDriver driver) {
+	public String getOrderNumber() {
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(orderNumber));
 		String result = element.getText();

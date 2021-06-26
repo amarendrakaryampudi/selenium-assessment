@@ -5,9 +5,14 @@ import org.openqa.selenium.WebDriver;
 
 public class HomePage {
 	
+	public WebDriver driver;
 	private By laptopsCategory = By.xpath("//div[contains(@aria-label,'Category') and contains(@id,'laptops')]");
 	
-	public void selectLaptopsCategory(WebDriver driver) {
+	public HomePage(WebDriver driver) {
+		this.driver = driver;
+	}
+	
+	public void selectLaptopsCategory() {
 		driver.findElement(laptopsCategory).click();
 		System.out.println("Clicked on Laptops category");
 	}
