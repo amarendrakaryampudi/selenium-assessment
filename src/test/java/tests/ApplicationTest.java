@@ -1,6 +1,7 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -20,8 +21,12 @@ public class ApplicationTest {
 
 	@BeforeTest
 	public void createDriver() {
-		driver = Driver.getDriver();
-		driver.manage().window().maximize();
+		try {
+			driver = Driver.getDriver();
+			driver.manage().window().maximize();
+		} catch(Exception exp) {
+			exp.printStackTrace();
+		}
 	}
 	
 	@AfterTest
@@ -31,37 +36,46 @@ public class ApplicationTest {
 	
 	@Test
 	public void purchaseLaptop() {
-		driver.get("http://advantageonlineshopping.com/#/");
 		
-		MenuBar menuBar = new MenuBar(driver);
-		menuBar.login(username, password);
+		try {
+			driver.get("http://advantageonlineshopping.com/#/");
+			
+			MenuBar menuBar = new MenuBar(driver);
+			menuBar.login(username, password);
 
-		HomePage homePage = new HomePage(driver);
-		homePage.selectLaptopsCategory();
-		
-		ProductsPage productsPage = new ProductsPage(driver);
-		productsPage.selectFirstProduct();
-		
-		ProductDetailsPage prodDetailsPage = new ProductDetailsPage(driver);
-		prodDetailsPage.increaseQuantity();
-		prodDetailsPage.addToCart();
-		
-		menuBar.clickCartIcon();
-		
-		ShoppingCartPage shoppingCart = new ShoppingCartPage(driver);
-		shoppingCart.clickCheckOutButton();
-		
-		PaymentPage paymentPage = new PaymentPage(driver);
-		paymentPage.clickNext();
-		paymentPage.selectSafePay();
-		paymentPage.enterSafePayUsername(username);
-		paymentPage.enterSafePayPassword(password);
-		paymentPage.clickPayNowSafePay();
-		
-		paymentPage.getTrackingNumber();
-		paymentPage.getOrderNumber();
-		
-		menuBar.logout();
+			HomePage homePage = new HomePage(driver);
+			homePage.selectLaptopsCategory();
+			
+			ProductsPage productsPage = new ProductsPage(driver);
+			productsPage.selectFirstProduct();
+			
+			ProductDetailsPage prodDetailsPage = new ProductDetailsPage(driver);
+			prodDetailsPage.increaseQuantity();
+			prodDetailsPage.addToCart();
+			
+			menuBar.clickCartIcon();
+			
+			ShoppingCartPage shoppingCart = new ShoppingCartPage(driver);
+			shoppingCart.clickCheckOutButton();
+			
+			PaymentPage paymentPage = new PaymentPage(driver);
+			paymentPage.clickNext();
+			paymentPage.selectSafePay();
+			paymentPage.enterSafePayUsername(username);
+			paymentPage.enterSafePayPassword(password);
+			paymentPage.clickPayNowSafePay();
+			
+			paymentPage.getTrackingNumber();
+			paymentPage.getOrderNumber();
+			
+			menuBar.logout();
+			
+			Assert.assertTrue(true);
+			
+		} catch(Exception exp) {
+			exp.printStackTrace();
+			Assert.assertTrue(false);
+		}
 		
 	}
 }
