@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import resources.Driver;
 import resources.HomePage;
@@ -14,8 +15,10 @@ import resources.ProductDetailsPage;
 import resources.ProductsPage;
 import resources.ShoppingCartPage;
 
+//Sample comment for commit 1
+
 public class ApplicationTest {
-	
+
 	public WebDriver driver;
 	public String username="user1a", password="June@2021";
 
@@ -28,54 +31,48 @@ public class ApplicationTest {
 			exp.printStackTrace();
 		}
 	}
-	
+
 	@AfterTest
 	public void clearDriver() {
 		driver.quit();
 	}
-	
+
 	@Test
 	public void purchaseLaptop() {
-		
+
 		try {
 			driver.get("http://advantageonlineshopping.com/#/");
-			
-			MenuBar menuBar = new MenuBar(driver);
-			menuBar.login(username, password);
 
-			HomePage homePage = new HomePage(driver);
-			homePage.selectLaptopsCategory();
-			
+
+			MenuBar menuBar = new MenuBar(driver); menuBar.login(username, password);
+
+			HomePage homePage = new HomePage(driver); homePage.selectLaptopsCategory();
+
 			ProductsPage productsPage = new ProductsPage(driver);
 			productsPage.selectFirstProduct();
-			
+
 			ProductDetailsPage prodDetailsPage = new ProductDetailsPage(driver);
-			prodDetailsPage.increaseQuantity();
-			prodDetailsPage.addToCart();
-			
+			prodDetailsPage.increaseQuantity(); prodDetailsPage.addToCart();
+
 			menuBar.clickCartIcon();
-			
+
 			ShoppingCartPage shoppingCart = new ShoppingCartPage(driver);
 			shoppingCart.clickCheckOutButton();
-			
-			PaymentPage paymentPage = new PaymentPage(driver);
-			paymentPage.clickNext();
-			paymentPage.selectSafePay();
-			paymentPage.enterSafePayUsername(username);
-			paymentPage.enterSafePayPassword(password);
-			paymentPage.clickPayNowSafePay();
-			
-			paymentPage.getTrackingNumber();
-			paymentPage.getOrderNumber();
-			
+
+			PaymentPage paymentPage = new PaymentPage(driver); paymentPage.clickNext();
+			paymentPage.selectSafePay(); paymentPage.enterSafePayUsername(username);
+			paymentPage.enterSafePayPassword(password); paymentPage.clickPayNowSafePay();
+
+			paymentPage.getTrackingNumber(); paymentPage.getOrderNumber();
+
 			menuBar.logout();
-			
+
 			Assert.assertTrue(true);
-			
+
 		} catch(Exception exp) {
 			exp.printStackTrace();
 			Assert.assertTrue(false);
 		}
-		
+
 	}
 }
