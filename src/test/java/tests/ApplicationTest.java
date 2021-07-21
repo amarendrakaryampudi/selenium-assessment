@@ -17,6 +17,8 @@ import resources.ShoppingCartPage;
 
 //Sample comment for commit 1
 
+//Sample comment for commit 2
+
 public class ApplicationTest {
 
 	public WebDriver driver;
